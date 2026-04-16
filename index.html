@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brighten — Lewes, DE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --sky: #E8F4F8;
+  --sky-mid: #C2DDE8;
+  --ocean: #1A5C78;
+  --ocean-deep: #0E3A4E;
+  --wave: #2E8AA8;
+  --sand: #F7F0E3;
+  --sand-warm: #EDE0C8;
+  --dune: #C8A96E;
+  --seafoam: #7DBFB2;
+  --coral: #D4735A;
+  --white: #FEFCF8;
+  --ink: #1A2830;
+  --ink-mid: #3E5260;
+  --ink-light: #7A909A;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--ink); }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2.5rem;
+  background: rgba(247, 240, 227, 0.93);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--sand-warm);
+}
+.nav-wordmark {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; font-weight: 400; font-style: italic;
+  color: var(--ocean); letter-spacing: 0.03em;
+}
+.nav-sub {
+  font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-light); margin-left: 0.75rem;
+}
+.nav-left { display: flex; align-items: baseline; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+  font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-mid); text-decoration: none; font-weight: 400;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ocean); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  padding: 0 2rem 6rem;
+  text-align: center;
+  background: linear-gradient(175deg, #B8D8E8 0%, #D4EAF2 30%, #E8F4F8 55%, var(--sand) 78%);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 48%; left: 0; right: 0;
+  height: 1px; background: rgba(26, 92, 120, 0.12);
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 100px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23F7F0E3' d='M0,50 C240,90 480,20 720,50 C960,80 1200,20 1440,50 L1440,100 L0,100Z'/%3E%3C/svg%3E") no-repeat bottom/cover;
+}
+.sun {
+  position: absolute; top: 14%; left: 50%; transform: translateX(-50%);
+  width: 90px; height: 90px; border-radius: 50%;
+  background: radial-gradient(circle, #F5D87A 40%, rgba(245,216,122,0) 70%);
+  box-shadow: 0 0 60px 20px rgba(245,216,122,0.35);
+}
+.seagulls { position: absolute; top: 22%; right: 18%; opacity: 0.5; }
+.hero-eyebrow {
+  font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--dune); margin-bottom: 1.25rem; font-weight: 400; position: relative;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4.5rem, 14vw, 9rem);
+  font-weight: 400; font-style: italic;
+  line-height: 0.9; color: var(--ocean);
+  margin-bottom: 1.25rem; position: relative; letter-spacing: -0.02em;
+}
+.hero-location {
+  font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--ink-light); margin-bottom: 1.75rem; position: relative;
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+}
+.hero-location::before, .hero-location::after {
+  content: ''; display: block;
+  width: 30px; height: 1px; background: var(--ink-light); opacity: 0.4;
+}
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(0.9rem, 2.2vw, 1.2rem);
+  font-weight: 400; font-style: italic;
+  color: var(--ink-mid); margin-bottom: 2.5rem;
+  max-width: 480px; line-height: 1.6; position: relative;
+}
+.hero-cta {
+  display: inline-block; padding: 0.9rem 2.75rem;
+  background: var(--ocean); color: var(--white);
+  text-decoration: none;
+  font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 500; transition: background 0.2s, transform 0.15s; position: relative;
+}
+.hero-cta:hover { background: var(--ocean-deep); transform: translateY(-2px); }
+
+/* FACT BAND */
+.fact-band {
+  background: var(--ocean);
+  display: flex; justify-content: center; flex-wrap: wrap;
+}
+.fact-item {
+  padding: 1.5rem 2.5rem;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  text-align: center; flex: 1; min-width: 130px;
+}
+.fact-item:last-child { border-right: none; }
+.fact-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.25rem; font-weight: 400; font-style: italic;
+  color: var(--white); line-height: 1;
+}
+.fact-label {
+  font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-top: 0.35rem;
+}
+
+/* SECTIONS */
+section { padding: 5rem 2rem; }
+.inner { max-width: 960px; margin: 0 auto; }
+.eyebrow {
+  font-size: 0.58rem; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--dune); margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 400; font-style: italic;
+  color: var(--ocean); margin-bottom: 2rem; line-height: 1.15;
+}
+
+/* ABOUT */
+.about-section { background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.about-body { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.85; font-weight: 300; }
+.about-body p + p { margin-top: 1.25rem; }
+.about-feature-list { list-style: none; margin-top: 1.5rem; }
+.about-feature-list li {
+  font-size: 0.78rem; color: var(--ink-mid); padding: 0.6rem 0;
+  border-bottom: 1px solid var(--sand-warm);
+  display: flex; align-items: center; gap: 0.75rem; font-weight: 300;
+}
+.about-feature-list li::before {
+  content: ''; display: block;
+  width: 18px; height: 1px; background: var(--dune); flex-shrink: 0;
+}
+.about-visual {
+  background: var(--sky); border: 1px solid var(--sky-mid);
+  padding: 2.5rem; display: flex; flex-direction: column; gap: 1px;
+}
+.floor-label {
+  font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-light); padding: 0.5rem 0; border-bottom: 1px solid var(--sky-mid);
+  margin-bottom: 0.75rem;
+}
+.floor-room {
+  background: var(--white); padding: 0.65rem 1rem; margin-bottom: 1px;
+  font-size: 0.75rem; color: var(--ink-mid); font-weight: 300;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.room-tag { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--seafoam); }
+.floor-spacer { height: 1.25rem; }
+
+/* AMENITIES */
+.amenities-section { background: var(--sand); }
+.amenity-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px; background: var(--sand-warm);
+  border: 1px solid var(--sand-warm); margin-top: 2.5rem;
+}
+.amenity-card { background: var(--white); padding: 2rem 1.75rem; }
+.amenity-icon { font-size: 1.35rem; margin-bottom: 0.85rem; display: block; }
+.amenity-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-style: italic; color: var(--ocean); margin-bottom: 0.5rem;
+}
+.amenity-desc { font-size: 0.78rem; color: var(--ink-mid); line-height: 1.75; font-weight: 300; }
+
+/* POLICIES */
+.policies-section { background: var(--ocean-deep); }
+.policies-section .eyebrow { color: var(--seafoam); }
+.policies-section .section-title { color: var(--white); }
+.policy-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0; margin-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+}
+.policy-card { padding: 1.5rem 0; margin-right: 2rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.policy-key {
+  font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--seafoam); margin-bottom: 0.4rem;
+}
+.policy-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-style: italic; font-weight: 400;
+  color: var(--white); line-height: 1.5;
+}
+
+/* CALENDAR */
+.calendar-section { background: var(--white); }
+.cal-wrap { margin-top: 2.5rem; border: 1px solid var(--sand-warm); overflow: hidden; }
+.cal-bar {
+  background: var(--ocean); padding: 1rem 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cal-bar-label {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.cal-status {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--seafoam);
+}
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--seafoam); display: inline-block; animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.cal-iframe { width: 100%; height: 480px; border: none; display: block; background: var(--sand); }
+.cal-footnote {
+  padding: 0.85rem 1.5rem;
+  font-size: 0.68rem; color: var(--ink-light); font-style: italic;
+  border-top: 1px solid var(--sand-warm);
+}
+
+/* BOOKING */
+.booking-section { background: var(--sand); }
+.booking-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+.booking-lede {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-style: italic; font-weight: 400;
+  color: var(--ink-mid); line-height: 1.65;
+  border-left: 2px solid var(--dune); padding-left: 1.25rem; margin-bottom: 1.5rem;
+}
+.booking-copy { font-size: 0.78rem; color: var(--ink-light); line-height: 1.85; font-weight: 300; }
+.form-wrap { background: var(--white); border: 1px solid var(--sand-warm); padding: 2.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fgroup { margin-bottom: 1.25rem; }
+.flabel {
+  display: block; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-light); margin-bottom: 0.45rem;
+}
+.finput {
+  width: 100%; padding: 0.7rem 0.9rem;
+  background: var(--sand); border: 1px solid var(--sand-warm);
+  color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 300;
+  outline: none; transition: border-color 0.2s; border-radius: 0; appearance: none;
+}
+.finput:focus { border-color: var(--ocean); background: var(--white); }
+textarea.finput { resize: vertical; min-height: 88px; }
+select.finput { cursor: pointer; }
+.fbtn {
+  width: 100%; padding: 0.95rem;
+  background: var(--ocean); color: var(--white); border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.22em;
+  text-transform: uppercase; font-weight: 500; transition: background 0.2s;
+}
+.fbtn:hover { background: var(--ocean-deep); }
+.form-fine { font-size: 0.62rem; color: var(--ink-light); text-align: center; margin-top: 0.85rem; font-style: italic; }
+
+/* MODAL */
+.modal-bg {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(14, 58, 78, 0.75); align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-bg.on { display: flex; }
+.modal {
+  background: var(--white); max-width: 420px; width: 100%;
+  padding: 2.75rem; text-align: center; animation: up 0.3s ease;
+}
+@keyframes up { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:translateY(0) } }
+.modal-ico { font-size: 2.25rem; margin-bottom: 0.85rem; display: block; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-style: italic; color: var(--ocean); margin-bottom: 0.85rem; }
+.modal-msg { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.75; margin-bottom: 1.75rem; font-weight: 300; }
+.modal-btn {
+  padding: 0.75rem 2.25rem; background: var(--ocean); color: var(--white);
+  border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; transition: background 0.2s;
+}
+.modal-btn:hover { background: var(--ocean-deep); }
+
+/* FOOTER */
+footer { background: var(--ink); padding: 3rem 2rem; text-align: center; }
+.foot-name { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-style: italic; color: var(--white); margin-bottom: 0.25rem; }
+.foot-loc { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.5rem; }
+.foot-rule { width: 36px; height: 1px; background: var(--dune); margin: 0 auto 1.5rem; }
+.foot-note { font-size: 0.68rem; color: rgba(255,255,255,0.2); font-style: italic; }
+
+/* FADE */
+.fi { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.fi.on { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .nav-links, .nav-sub { display: none; }
+  .about-grid, .booking-grid { grid-template-columns: 1fr; }
+  .about-visual { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-wordmark">Brighten</span>
+    <span class="nav-sub">Lewes, DE</span>
+  </div>
+  <div class="nav-links">
+    <a href="#about">The House</a>
+    <a href="#amenities">Amenities</a>
+    <a href="#calendar">Availability</a>
+    <a href="#book">Request a Stay</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="sun"></div>
+  <svg class="seagulls" width="80" height="40" viewBox="0 0 80 40" fill="none">
+    <path d="M5 20 Q12 14 19 20" stroke="rgba(26,92,120,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M30 12 Q38 6 46 12" stroke="rgba(26,92,120,0.3)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M55 24 Q61 19 67 24" stroke="rgba(26,92,120,0.25)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  </svg>
+  <p class="hero-eyebrow fi">Private Residence · Friends & Family Only</p>
+  <h1 class="hero-title fi">Brighten</h1>
+  <div class="hero-location fi">Lewes, Delaware</div>
+  <p class="hero-tagline fi">"A few minutes from Rehoboth, a few decades from your responsibilities."</p>
+  <a href="#book" class="hero-cta fi">Request Your Stay</a>
+</div>
+
+<!-- FACT BAND -->
+<div class="fact-band">
+  <div class="fact-item">
+    <div class="fact-num">3</div>
+    <div class="fact-label">Bedrooms</div>
+  </div>
+  <div class="fact-item">
+    <div class="fact-num">4</div>
+    <div class="fact-label">Bathrooms</div>
+  </div>
+  <div class="fact-item">
+    <div class="fact-num">🐶</div>
+    <div class="fact-label">Dog Permitted</div>
+  </div>
+  <div class="fact-item">
+    <div class="fact-num">0</div>
+    <div class="fact-label">Strangers Permitted</div>
+  </div>
+  <div class="fact-item">
+    <div class="fact-num">∞</div>
+    <div class="fact-label">Good Times, Reportedly</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="inner">
+    <p class="eyebrow fi">The Property</p>
+    <h2 class="section-title fi">A home that gets it.</h2>
+    <div class="about-grid">
+      <div class="fi">
+        <div class="about-body">
+          <p>Brighten sits on Brighten Drive in Lewes, Delaware — technically not Rehoboth, which is exactly the point. Quieter streets, shorter lines, easier parking, same water.</p>
+          <p>The house is a three-bedroom townhouse-style condo built in 2005 with the kind of layout that actually works for a group: a primary suite downstairs for whoever gets there first, two more bedrooms upstairs, a generous loft for when people need their own corner, and a gas fireplace for the nights that call for it.</p>
+          <p>It's not a rental property. It belongs to friends. There are house rules, but they are delivered with love.</p>
+        </div>
+        <ul class="about-feature-list">
+          <li>Primary suite on main floor — en suite bath, walk-in closet</li>
+          <li>Two additional bedrooms upstairs</li>
+          <li>Loft family room — movies, games, the retreat zone</li>
+          <li>Gas fireplace in the main living area</li>
+          <li>Vaulted ceilings, recessed lighting, hardwood floors</li>
+          <li>Full kitchen — light wood cabinetry, ceramic tile</li>
+          <li>4 bathrooms. Yes, four. No waiting.</li>
+        </ul>
+      </div>
+      <div class="about-visual fi">
+        <div class="floor-label">Upper Level</div>
+        <div class="floor-room">Loft Family Room <span class="room-tag">Movies · Games · Escape</span></div>
+        <div class="floor-room">Bedroom 2 <span class="room-tag">Full Bed</span></div>
+        <div class="floor-room">Bedroom 3 <span class="room-tag">Full Bed</span></div>
+        <div class="floor-room">Full Hall Bath</div>
+        <div class="floor-spacer"></div>
+        <div class="floor-label">Main Level</div>
+        <div class="floor-room">Living Room <span class="room-tag">Fireplace · Vaulted</span></div>
+        <div class="floor-room">Dining Room <span class="room-tag">Crown Molding</span></div>
+        <div class="floor-room">Full Kitchen <span class="room-tag">Breakfast Nook</span></div>
+        <div class="floor-room">Primary Suite <span class="room-tag">En Suite · Walk-In</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities-section" id="amenities">
+  <div class="inner">
+    <p class="eyebrow fi">Curated Offerings</p>
+    <h2 class="section-title fi">Everything you need.<br>Most of what you want.</h2>
+    <div class="amenity-grid fi">
+      <div class="amenity-card">
+        <span class="amenity-icon">🌊</span>
+        <div class="amenity-name">Lewes / Rehoboth Access</div>
+        <p class="amenity-desc">Minutes from both. Rehoboth for the Dogfish Head and the Funland nostalgia. Lewes for the farmers market and the feeling that you made a sophisticated choice.</p>
+      </div>
+      <div class="amenity-card">
+        <span class="amenity-icon">🔥</span>
+        <div class="amenity-name">Gas Fireplace</div>
+        <p class="amenity-desc">For the evenings in September when the ocean gets its personality back. One button. Instant ambiance. No one has to pretend they know how to build a fire.</p>
+      </div>
+      <div class="amenity-card">
+        <span class="amenity-icon">🛋️</span>
+        <div class="amenity-name">The Loft</div>
+        <p class="amenity-desc">A large upstairs family room that functions as overflow living space, movie command center, or the room you escape to when you've had sufficient togetherness.</p>
+      </div>
+      <div class="amenity-card">
+        <span class="amenity-icon">🍳</span>
+        <div class="amenity-name">Full Kitchen</div>
+        <p class="amenity-desc">Light wood cabinetry, under-cabinet lighting, ceramic tile, double sink. Everything you need to cook. Or, more realistically, to store the things you bought at the outlets.</p>
+      </div>
+      <div class="amenity-card">
+        <span class="amenity-icon">🚿</span>
+        <div class="amenity-name">Four Bathrooms</div>
+        <p class="amenity-desc">This is the feature everyone mentions. Three bedrooms, four bathrooms. No negotiations. No schedules. No resentments. Peace.</p>
+      </div>
+      <div class="amenity-card">
+        <span class="amenity-icon">🚗</span>
+        <div class="amenity-name">Garage + Parking</div>
+        <p class="amenity-desc">A dedicated garage and parking. In Lewes beach season, this is not an amenity. This is a miracle. Treat it accordingly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POLICIES -->
+<section class="policies-section" id="policies">
+  <div class="inner">
+    <p class="eyebrow fi">House Policies</p>
+    <h2 class="section-title fi">The terms of your stay.</h2>
+    <div class="policy-grid fi">
+      <div class="policy-card">
+        <div class="policy-key">Arrival</div>
+        <div class="policy-val">When you get there. Text when you're close.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-key">Departure</div>
+        <div class="policy-val">Before Sunday becomes Monday and regret sets in.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-key">The Primary Suite</div>
+        <div class="policy-val">First to arrive. No exceptions. No appeals.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-key">Bring Something</div>
+        <div class="policy-val">Wine, snacks, dessert. Goodwill is the currency here.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-key">Pets</div>
+        <div class="policy-val">One dog. Discuss first. Cats: this is not a conversation we're having.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-key">Extra Guests</div>
+        <div class="policy-val">Requires advance notice and a compelling argument.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-key">Clean Up</div>
+        <div class="policy-val">Leave it how you found it. You know what that means.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-key">Cancellations</div>
+        <div class="policy-val">Let us know early. Ghosting is not a cancellation policy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section class="calendar-section" id="calendar">
+  <div class="inner">
+    <p class="eyebrow fi">Availability</p>
+    <h2 class="section-title fi">When Brighten is yours.</h2>
+    <div class="cal-wrap fi">
+      <div class="cal-bar">
+        <span class="cal-bar-label">Live Availability — Updated by the Owners</span>
+        <span class="cal-status"><span class="dot"></span> Real-time calendar</span>
+      </div>
+      <!-- ============================================================ -->
+      <!-- REPLACE THE src BELOW WITH YOUR GOOGLE CALENDAR EMBED URL    -->
+      <!-- Get it from: Google Calendar > Settings > [your calendar]    -->
+      <!-- > Integrate Calendar > Embed code (copy the src URL only)    -->
+      <!-- ============================================================ -->
+      <iframe
+        class="cal-iframe"
+        src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID%40group.calendar.google.com&ctz=America%2FNew_York&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&mode=MONTH&bgcolor=%23F7F0E3"
+        frameborder="0" scrolling="no">
+      </iframe>
+      <div class="cal-footnote">Availability is owner-controlled. Blocked dates are either taken or being held — contact us to confirm before requesting.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="book">
+  <div class="inner">
+    <p class="eyebrow fi">Reservations</p>
+    <h2 class="section-title fi">Put your name in.</h2>
+    <div class="booking-grid">
+      <div class="fi">
+        <p class="booking-lede">"We'll review your request, check the calendar, confer briefly, and get back to you. We are delighted you want to come."</p>
+        <p class="booking-copy">Stays are confirmed by the owners — this isn't Airbnb and it will never be Airbnb. Submit your request, and a real human who knows you will respond within a day or two.<br><br>If you are not someone who knows us, you are in the wrong place and we wish you well.</p>
+      </div>
+      <div class="fi">
+        <div class="form-wrap">
+          <div class="form-row">
+            <div class="fgroup">
+              <label class="flabel">Arrival Date</label>
+              <input type="date" class="finput" id="arr">
+            </div>
+            <div class="fgroup">
+              <label class="flabel">Departure Date</label>
+              <input type="date" class="finput" id="dep">
+            </div>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Your Name</label>
+            <input type="text" class="finput" id="gname" placeholder="First and last">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Phone or Email</label>
+            <input type="text" class="finput" id="contact" placeholder="Best way to reach you">
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Party Size</label>
+            <select class="finput" id="party">
+              <option value="">Select...</option>
+              <option>1–2 people</option>
+              <option>3–4 people</option>
+              <option>5–6 people (heads up: discuss first)</option>
+              <option>6+ people (you need to call us)</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Bringing a Dog?</label>
+            <select class="finput" id="dog">
+              <option value="">Select...</option>
+              <option>No dog this time</option>
+              <option>Yes — one good dog</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <label class="flabel">Anything We Should Know</label>
+            <textarea class="finput" id="notes" placeholder="Special occasions, dietary things, general context..."></textarea>
+          </div>
+          <button class="fbtn" onclick="submitForm()">Submit Stay Request</button>
+          <p class="form-fine">By submitting, you confirm that you are, in fact, invited.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-name">Brighten</div>
+  <div class="foot-loc">17699 Brighten Dr · Lewes, Delaware · By Invitation Only</div>
+  <div class="foot-rule"></div>
+  <p class="foot-note">Not a hotel. Not a rental. A beach house that belongs to people who like you.</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <span class="modal-ico">🌊</span>
+    <div class="modal-title">Request received.</div>
+    <p class="modal-msg">Your request has been noted and is under review by the Owners. Expect a reply within 24–48 hours — or sooner, if someone isn't at the beach already.<br><br>We look forward to having you at Brighten.</p>
+    <button class="modal-btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.hero .fi').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.14) + 's';
+    setTimeout(() => el.classList.add('on'), 80 + i * 140);
+  });
+
+  function submitForm() {
+    const arr = document.getElementById('arr').value;
+    const dep = document.getElementById('dep').value;
+    const name = document.getElementById('gname').value;
+    const contact = document.getElementById('contact').value;
+    const party = document.getElementById('party').value;
+    const dog = document.getElementById('dog').value;
+    const notes = document.getElementById('notes').value;
+    if (!arr || !dep || !name || !contact || !party) {
+      alert('Please fill in all required fields.'); return;
+    }
+    const sub = encodeURIComponent('Stay Request at Brighten — ' + name);
+    const bod = encodeURIComponent(
+'Stay Request\n—————————————\nName: ' + name +
+'\nArrival: ' + arr +
+'\nDeparture: ' + dep +
+'\nContact: ' + contact +
+'\nParty Size: ' + party +
+'\nBringing a dog: ' + (dog || 'Not specified') +
+'\nNotes: ' + (notes || 'None') +
+'\n\nSubmitted via Brighten house site.'
+    );
+    // ============================================================
+    // REPLACE THE EMAIL ADDRESS BELOW WITH THE OWNERS' EMAIL
+    // ============================================================
+    window.location.href = 'mailto:OWNERS_EMAIL@example.com?subject=' + sub + '&body=' + bod;
+    document.getElementById('modal').classList.add('on');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('on');
+  }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
+</body>
+</html>
